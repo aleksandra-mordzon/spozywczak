@@ -13,18 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
-Route::get('/show', function () {
-    return view('show');
-});
 
-Route::get('/products', function () {
-    return view('products');
-});
 
+
+Route::get('/products/{list}', 'ProductsController@list')->where(['list' => 'new|sale|groceries|hygiene_products']);
+Route::get('/products/search', 'ProductsController@search');
+
+Route::get('/', 'ProductsController@index');
+Route::get('/show/{slug}', 'ProductsController@show');
 
 
 Auth::routes();

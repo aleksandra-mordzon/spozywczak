@@ -20,32 +20,51 @@
 </style>
 
 <div style="height:100%!important;" >
-    <div class="mt-12 ml-64 relative " style="display: flex; min-height:950px!important;">
-        <div class="flex items-start text-gray-900 " style="display:block;"><a href="/" class="hover:text-black"><i class="fa fa-home mr-1" aria-hidden="true" style="font-size:24px"></i></a><a href="#" class="hover:text-black"><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i> Produkty spożywcze </a><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i><a href="#" class="hover:text-black"> Pieczywo </a><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i><a href="#" class="hover:text-black"> Chleb</a> <i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i><a href="#" class="hover:text-black"> Chleb pszenny</a></div>
+        <div class="mt-12 ml-64 relative " style="display: flex; min-height:950px!important; ">
+        <div class=" items-start text-gray-900 absolute" style="display:block; "><a href="/" class="hover:text-black"><i class="fa fa-home mr-1" aria-hidden="true" style="font-size:24px"></i></a><a href="#" class="hover:text-black"><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i> Produkty spożywcze </a><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i><a href="#" class="hover:text-black"> Pieczywo </a><i class="fa fa-angle-double-right mx-1" style="font-size:24px"></i><a href="#" class="hover:text-black"> </a> <a href="#" class="hover:text-black"> Chleb pszenny</a></div>
         
-        <div class=" absolute mt-5  " id="images" style="max-width:546px; padding-top:15px;">
+        <div class="relative w-1/3" style="height:auto">
+        <div class="absolute  mt-5  " id="images" style="max-width:546px; padding-top:15px;">
             <img src="{{ asset('img/chleb.jpg') }}" class=" cursor-pointer border-solid border-2 border-gray-300 hover:border-gray-400">
             <div class="flex justify-center mt-5">
                 <img src="{{ asset('img/chleb.jpg') }}" class="w-1/4 cursor-pointer border-solid border-2 border-gray-500 ">
             </div>
         </div>
+        </div>
 
+        <div class="float-right  w-4/6 pl-24 mt-10" style=" display: block; ">
+            <div class="font-semibold text-4xl">{{$product->title}}</div>
+            <div class="text-xl">
+            @if($product->newprice != NULL)
+                <b class="text-red-800">{{$product->price}} zł</b> <s>{{$product->newprice}} zł</s>
 
-        <div class=" right-0 w-4/6 pl-32" style=" display: block;">
-            <div class="font-semibold text-4xl">Chleb pszenny</div>
-            <div class="font-semibold text-xl text-red-700">1.49 zł <s class="text-black font-medium">1.99 zł</s></div>
-            <div class="flex"><img src="{{asset('img/5-star.png')}}" class="mt-4"><b class=" mt-4 font-semibold">(20)</b></div>
+                @else
+                <b>{{$product->price}} zł</b> 
+            @endif
+            </div>
+            <div class="flex">
+            <?php
+            $n = (strpos(strval($product->rating),'.')) ?  floor($product->rating) + 0.5 : $product->rating ;
+            $img='/img/'.$n.'-star.png';
+            echo "<img src='$img' class='mt-4'>";
+            //echo strpos(strval($product->rating),'.')
+            
+            ?>
+            
+            
+            
+            <b class=" mt-4 font-semibold">(20)</b></div>
             <button type="submit" class=" bg-green-500 hover:bg-green-600 left-0 px-5 py-3 text-white font-semibold rounded-lg mt-10">
                                     Dodaj do koszyka  <i class="fa fa-cart-plus ml-2 " style="font-size:24px"></i>
             </button>
             <div class="mt-8 ">
                 <div>
                     <div class="font-semibold text-2xl mr-64" style="border-bottom: 1px solid lightgray">Opis produktu <i class="fa fa-plus-square pt-2 cursor-pointer"  onclick="Toggle('1')" style="font-size:24px; float: right;"></i></div>
-                    <div style="visibility: hidden; font-size: 0;margin: 0;" class=" text-justify" id="t-1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis minus reprehenderit harum fugiat consequatur, fuga eius vitae libero alias consectetur similique sit dicta doloribus, exercitationem temporibus dignissimos expedita aperiam autem nemo nihil ullam incidunt? Excepturi quaerat cum doloremque veritatis? Enim!</div>
+                    <div style="visibility: hidden; font-size: 0;margin: 0;" class=" text-justify" id="t-1">{{$product->summary}}</div>
                 </div>
                 <div>
                     <div class="font-semibold text-2xl mr-64 " style="border-bottom: 1px solid lightgray">Dane szczegółowe <i class="fa fa-plus-square pt-2 cursor-pointer" onclick="Toggle('2')" style="font-size:24px; float: right;"></i></div>
-                    <div style="visibility: hidden; font-size: 0;margin: 0;" class=" text-justify" id="t-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, consequuntur?</div>
+                    <div style="visibility: hidden; font-size: 0;margin: 0;" class=" text-justify" id="t-2">{{$product->details}}</div>
                 </div>
                 <div>
                     <div class="font-semibold text-2xl mr-64 "  style="border-bottom: 1px solid lightgray; ">Opinie <i class="fa fa-plus-square pt-2 cursor-pointer" onclick="Toggle('3')" style="font-size:24px; float: right;"></i></div>
@@ -108,17 +127,19 @@
 <div class="ml-64 text-2xl">Zobacz również:</div>
 
 
-<div class="glide mt-3 mb-16">
+<div class="glide mt-3 mb-16 absolute bottom-0">
         <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                   
+                @foreach($randomproducts as $rproduct)
+                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10">
+                @if($rproduct->newprice != NULL)
+                <b class="text-red-800">{{$rproduct->newprice}} zł</b> <s>{{$rproduct->price}} zł</s>
+
+                @else
+                <b>{{$rproduct->price}} zł</b> 
+                @endif
+                <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>{{$rproduct->title}}</div></a></div></li>
+                 @endforeach
                 </ul>
         </div>
         <div class="glide__arrows" data-glide-el="controls">
@@ -130,7 +151,7 @@
 </div>
 
   </div>
-    
+   
 <script>
 function Toggle(num){
 var con=new String("t-"+num);

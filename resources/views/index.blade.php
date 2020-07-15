@@ -16,14 +16,9 @@
     <div class="glide mt-3">
         <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                   
+                @foreach($productsSale as $product)
+                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">{{$product->newprice}} zł</b> <s>{{$product->price}} zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>{{$product->title}}</div></a></div></li>
+                  @endforeach
                 </ul>
         </div>
         <div class="glide__arrows" data-glide-el="controls">
@@ -43,13 +38,19 @@
     <div class="glide mt-3">
         <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
+                @foreach($productsNew as $product)
+                
+                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10">
+                @if($product->newprice != NULL)
+                <b class="text-red-800">{{$product->newprice}} zł</b> <s>{{$product->price}} zł</s>
+
+                @else
+                <b>{{$product->price}} zł</b> 
+                @endif
+                <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>{{$product->title}}</div></a></div></li>
+                
+                
+                @endforeach
                    
                 </ul>
         </div>
@@ -67,14 +68,17 @@
     <div class="glide mt-3">
         <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="#"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10"><b class="text-red-800">1.49 zł</b> <s>1.99 zł</s> <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>Chleb pszenny</div></a></div></li>
-                   
+                @foreach($productsPopular as $product)
+                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/chleb.jpg') }}" style="max-width:300px;" class="ml-10">
+                @if($product->newprice != NULL)
+                <b class="text-red-800">{{$product->newprice}} zł</b> <s>{{$product->price}} zł</s>
+
+                @else
+                <b>{{$product->price}} zł</b> 
+                @endif
+                <i class="fa fa-cart-plus absolute right-0 mr-20 hover:text-green-800" style="font-size:36px"></i><br><div>{{$product->title}}</div></a></div></li>
+                
+                @endforeach
                 </ul>
         </div>
         <div class="glide__arrows" data-glide-el="controls">

@@ -17,10 +17,13 @@
 
                 <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto absolute  right-0 font-medium mr-32">
                 
-                <div style="margin: auto; " class="  relative pl-3 h-8 rounded-full border border-solid border-4 border-gray-600 hover:border-gray-800 ">
-                    <input type="text" placeholder="Szukaj..." style="" class="w-64 ">
-                    <i class="fa fa-search  pr-2 text-gray-800 cursor-pointer hover:text-gray-500 " style="font-size:24px;"></i>
-                </div>
+                    <div style="margin: auto; " class="  relative pl-3 h-8 rounded-full border border-solid border-4 border-gray-600 hover:border-gray-800 ">
+                        <form action="/products/search" method="get">
+                            <input type="text" placeholder="Szukaj..." style="" class="w-64 " name="q">
+                            <button type="submit"><i class="fa fa-search  pr-2 text-gray-800 cursor-pointer hover:text-gray-500 " style="font-size:24px;"></i></button>
+                        </form>
+                    </div>
+                
                     <div class="text-sm lg:flex-grow ">
                     
                     @guest
@@ -45,10 +48,10 @@
     <div class="bg-yellow-500  flex items-center justify-center text-lg py-2">
     <ul class="flex">
     <li class=" ml-24 hover:text-gray-700 cursor-pointer"><a href="/">Strona główna</a></li>
-    <li class="mr-24 ml-24 hover:text-gray-700 cursor-pointer"><a href="/products">Nowości</a></li>
-    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="#">Wyprzedaż</a></li>
-    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="#">Produkty spożywcze</a></li>
-    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="#">Produkty higieniczne</a></li>
+    <li class="mr-24 ml-24 hover:text-gray-700 cursor-pointer"><a href="/products/new">Nowości</a></li>
+    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="/products/sale">Wyprzedaż</a></li>
+    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="/products/groceries">Produkty spożywcze</a></li>
+    <li class="mr-24 hover:text-gray-700 cursor-pointer"><a href="/products/hygiene_products">Produkty higieniczne</a></li>
     </ul>
     </div>
 </navbar>
