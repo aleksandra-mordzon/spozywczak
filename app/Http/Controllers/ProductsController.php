@@ -82,183 +82,144 @@ class ProductsController extends Controller
         return view('show')->with($data);
     }
 
+    public $minPrice, $maxPrice, $name, $order, $how;
+    
     public function list(Request $request, $list)
     {
         
         $categories=Category::all();
-        $minPrice=$request->get('minPrice');
-        $maxPrice=$request->get('maxPrice');
-        $order=NULL;
-        $how=NULL;
+        $this->minPrice=$request->get('minPrice');
+        $this->maxPrice=$request->get('maxPrice');
+        $this->order='price';
+        $this->how='desc';
         $filter=$request->filters;
-        if($filter=='1'){
-            $order='price';
-            $how='asc';
-        }
-        else{
-            $how='desc';
-            if($filter=='2'){
-                $order='price'; 
-            }
-            elseif($filter=='3'){
-                $order='created_at'; 
-            }
-            elseif($filter=='4'){
-                $order='popularity'; 
-            }
+        
+        switch($filter){
+            case '1': $this->how='asc';
+                break;
+            case '3': $this->order='created_at';
+                break;
+            case '4': $this->order='popularity';
+                break;
         }
 
-
-        if($minPrice==NULL)
-        {
-            $minPrice=0;
-        }
-        if($maxPrice==NULL)
-        {
-            $maxPrice=100;
-        }
-
-
+        $this->minPrice= ($this->minPrice)? $this->minPrice : 0;
+        $this->maxPrice= ($this->maxPrice)? $this->maxPrice : 100;
+        
         if($list=='new')
         {
-            if(request()->category){
-                $name=ucfirst(trans(request()->category));
-                $products=Product::whereBetween('price', [$minPrice, $maxPrice])->orderBy('created_at','desc')->with('categories')->whereHas('categories', function ($query){
-                    $query->where('slug', request()->category);
-                })->take(12)->get();
-                
-            }
-            else
-            {
-                $products=Product::whereBetween('price', [$minPrice, $maxPrice])->orderBy('created_at','desc')->take(12)->get();
-                $name='Nowości';
-            }
-           
-            
+            $this->name='Nowości';
+            $products=$this->listNew();
         }
         elseif($list=='sale')
         {
-            if(request()->category){
-
-                $name=ucfirst(trans(request()->category));
-                if($order!=NULL)
-                {
-                    $products=Product::with('categories')->whereHas('categories', function ($query){
-                        $query->where('slug', request()->category);
-                    })->whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
-                }
-                else{
-                    $products=Product::with('categories')->whereHas('categories', function ($query){
-                        $query->where('slug', request()->category);
-                    })->whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
-                }
-                
-            }
-            else
-            {
-                if($order!=NULL)
-                {
-                    $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->take(12)->get();
-
-                }
-                else{
-                    $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->take(12)->get();
-                }
-                $name='Wyprzedaż';
-            }
+            $this->name='Wyprzedaż';
+            $products=$this->listSale();
             
         }
-
         elseif($list=='groceries')
         {
-            if(request()->category){
-                $name=ucfirst(trans(request()->category));
-                if($order!=NULL)
-                {
-                $products=Product::with('categories')->whereHas('categories', function ($query){
-                    $query->where('isgrocery',1)->where('slug', request()->category);
-                })->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
-                }
-                else{
-                    $products=Product::with('categories')->whereHas('categories', function ($query){
-                        $query->where('isgrocery',1)->where('slug', request()->category);
-                    })->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
-                }
-            }
-            else
-            {
-                if($order!=NULL)
-                {
-                    $products=Product::with('categories')->whereHas('categories', function ($query){
-                        $query->where('isgrocery',1);
-                    })->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
-    
-                }
-                else
-                {
-                    //where('isgrocery',1)->
-                    $products=Product::with('categories')->whereHas('categories', function ($query){
-                        $query->where('isgrocery',1);
-                    })->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
-    
-                }
-                $name='Produkty spożywcze';
-
-            }
-            
-            $products->appends(request()->query());
-            
-            
+            $this->name='Produkty spożywcze';
+            $products=$this->listGroceries();
         }
         elseif($list=='search')
         {
-            $q=$request->get('q');
-            if(request()->category){
-                if($order!=NULL)
-                {
-                    $products=Product::whereHas('categories', function ($query){
-                        $query->where('slug', request()->category);
-                    })->whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->orderBy($order,$how)->simplePaginate(12)->setPath('');
-
-                }
-                else
-                {
-                    $products=Product::whereHas('categories', function ($query){
-                        $query->where('slug', request()->category);
-                    })->whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->simplePaginate(12)->setPath('');
-
-                }
-            }
-            else{
-                if($order!=NULL)
-                {
-                    $products=Product::whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->orderBy($order,$how)->simplePaginate(12)->setPath('');
-    
-                }
-                else
-                {
-                    $products=Product::whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->simplePaginate(12)->setPath('');
-    
-                }
-            }
+            $this->name='Wyniki wyszukiwania';
             
-            $products->appends([ 'q' => $q])->render();
-            $name='Wyniki wyszukiwania';
-
+            $q=$request->get('q');
+            $products=$this->listSearch($q);
         }
         
+
         $data=array(
             'products'=>$products,
             'categories'=>$categories,
-            'name'=>$name,
-            'minPrice'=>$minPrice,
-            'maxPrice'=>$maxPrice,
+            'name'=>$this->name,
+            'minPrice'=>$this->minPrice,
+            'maxPrice'=>$this->maxPrice,
             'list'=>$list
         );
-        return view('products')->with($data);
-        
+        return view('products')->with($data); 
     }
 
+    public function listNew()
+    {
+        
+        $productsQuery=Product::whereBetween('price', [$this->minPrice, $this->maxPrice])->orderBy('created_at','desc');
+        
+        if(request()->category){
+            $this->name=ucfirst(request()->category);
+            $productsQuery->with('categories')->whereHas('categories', function ($query){$query->where('slug', request()->category);});   
+        }
+
+            $products=$productsQuery->take(12)->get();
+            return $products;
+    }
+
+    public function listSale()
+    {
+        if(request()->category){
+
+            $this->name=ucfirst(trans(request()->category));
+            $productsQuery=Product::with('categories')->whereHas('categories', function ($query){
+                $query->where('slug', request()->category);
+            })->whereNotNull('newprice')->whereBetween('price', [$this->minPrice, $this->maxPrice]);
+        }
+        else
+        {
+            $productsQuery=Product::whereNotNull('newprice')->whereBetween('price', [$this->minPrice, $this->maxPrice]);
+        }
+        if($this->order!=NULL)
+        {
+            $productsQuery->orderBy($this->order,$this->how);
+        }
+        $products=$productsQuery->take(12)->get();
+        return $products;
+    }
+
+    public function listGroceries(){
+        
+        if(request()->category){
+            $this->name=ucfirst(trans(request()->category));
+            $productsQuery=Product::with('categories')->whereHas('categories', function ($query){
+                $query->where('isgrocery',1)->where('slug', request()->category);
+            })->whereBetween('price', [$this->minPrice, $this->maxPrice]);
+        }
+        else
+        {
+            $productsQuery=Product::with('categories')->whereHas('categories', function ($query){
+                $query->where('isgrocery',1);
+            })->whereBetween('price', [$this->minPrice, $this->maxPrice]);
+        }
+        if($this->order!=NULL)
+        {
+            $productsQuery->orderBy($this->order,$this->how);
+        }
+        $products=$productsQuery->simplePaginate(12);  
+        $products->appends(request()->query());
+        return $products;
+    }
+
+    public function listSearch($q){
+        
+            if(request()->category){
+                $productsQuery=Product::whereHas('categories', function ($query){
+                    $query->where('slug', request()->category);
+                })->whereBetween('price', [$this->minPrice, $this->maxPrice])->where('title','LIKE','%'.$q.'%');
+               
+            }
+            else{
+                $productsQuery=Product::whereBetween('price', [$this->minPrice, $this->maxPrice])->where('title','LIKE','%'.$q.'%');
+                
+            }
+            if($this->order!=NULL)
+            {
+                $productsQuery->orderBy($this->order,$this->how);
+            }
+            $products=$productsQuery->simplePaginate(12)->setPath('');
+            $products->appends([ 'q' => $q])->render();
+            return $products;
+    }
 
     /**
      * Show the form for editing the specified resource.
