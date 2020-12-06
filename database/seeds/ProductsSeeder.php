@@ -21,11 +21,9 @@ class ProductsSeeder extends Seeder
             'rating'=>3.70,
             'price'=>2.99,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>67,
 
-        ]);
+        ])->categories()->attach(2);
         
         Product::create([
             'title'=>'Jagodzianki',
@@ -35,11 +33,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.20,
             'price'=>2.99,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>77,
 
-        ]);
+        ])->categories()->attach(2);
         
         Product::create([
             'title'=>'Buchty',
@@ -49,11 +45,9 @@ class ProductsSeeder extends Seeder
             'rating'=>3.20,
             'price'=>3.99,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>44,
 
-        ]);
+        ])->categories()->attach(2);
 
         Product::create([
             'title'=>'Chleb pszenny',
@@ -63,11 +57,9 @@ class ProductsSeeder extends Seeder
             'rating'=>5.00,
             'price'=>1.99,
             'newprice'=>1.49,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>87,
 
-        ]);
+        ])->categories()->attach(2);
 
         Product::create([
             'title'=>'Grahamka',
@@ -77,11 +69,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.20,
             'price'=>0.79,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>79,
 
-        ]);
+        ])->categories()->attach(2);
 
         Product::create([
             'title'=>'Drozdzowka',
@@ -91,11 +81,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.70,
             'price'=>2.99,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>69,
 
-        ]);
+        ])->categories()->attach(2);
 
         Product::create([
             'title'=>'Chleb wieloziarnisty',
@@ -105,11 +93,9 @@ class ProductsSeeder extends Seeder
             'rating'=>5.00,
             'price'=>2.29,
             'newprice'=>null,
-            'category'=>'pieczywo',
-            'isgrocery'=>1,
             'popularity'=>45,
 
-        ]);
+        ])->categories()->attach(2);
             
         Product::create([
             'title'=>'Jabłko',
@@ -119,11 +105,9 @@ class ProductsSeeder extends Seeder
             'rating'=>5.00,
             'price'=>0.99,
             'newprice'=>0.69,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>85,
 
-        ]);
+        ])->categories()->attach(1);
 
         Product::create([
             'title'=>'Gruszka',
@@ -133,11 +117,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.00,
             'price'=>1.29,
             'newprice'=>null,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>75,
 
-        ]);
+        ])->categories()->attach(1);
 
         Product::create([
             'title'=>'Banan',
@@ -147,11 +129,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.70,
             'price'=>1.79,
             'newprice'=>1.59,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>68,
 
-        ]);
+        ])->categories()->attach(1);
 
         Product::create([
             'title'=>'Jagody',
@@ -161,11 +141,9 @@ class ProductsSeeder extends Seeder
             'rating'=>4.70,
             'price'=>2.99,
             'newprice'=>null,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>89,
 
-        ]);
+        ])->categories()->attach(1);
 
         Product::create([
             'title'=>'Truskawki',
@@ -175,11 +153,9 @@ class ProductsSeeder extends Seeder
             'rating'=>3.70,
             'price'=>2.99,
             'newprice'=>2.59,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>67,
 
-        ]);
+        ])->categories()->attach(1);
 
         
         Product::create([
@@ -190,11 +166,9 @@ class ProductsSeeder extends Seeder
             'rating'=>3.20,
             'price'=>4.99,
             'newprice'=>NULL,
-            'category'=>'owoce',
-            'isgrocery'=>1,
             'popularity'=>71,
 
-        ]);
+        ])->categories()->attach(1);
         
     }
 }

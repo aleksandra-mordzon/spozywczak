@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
@@ -22,10 +23,8 @@ class CreateProductsTable extends Migration
             $table->float('rating');
             $table->float('price');
             $table->float('newprice')->nullable();
-            $table->string('category');
-            $table->boolean('isgrocery');
             $table->integer('popularity');
-            $table->timestamps(0);
+            $table->timestamps();
         });
     }
 

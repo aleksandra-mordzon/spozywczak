@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 use DB;
 class ProductsController extends Controller
 {
@@ -20,12 +21,20 @@ class ProductsController extends Controller
         $productsPopular=Product::orderBy('popularity','desc')->take(8)->get();
 
         $productsSale=DB::select('SELECT * FROM products WHERE newprice IS NOT NULL');
+        /*
         $data=array(
             'productsNew'=>$productsNew,
             'productsPopular'=>$productsPopular,
             'productsSale'=>$productsSale
         );
-        return view('index')->with($data);
+        */
+        $arr=array(
+            array("Wyprzedaż", "#CD5C5C;", $productsSale, ""),
+            array("Nowe produkty", "#30ab51;", $productsNew, "glide__green"),
+            array("Najpopularniejsze produkty", "#4091a3;", $productsPopular, "glide__blue")
+        );
+        $ar=$arr;
+        return view('index')->with("ar",$ar);
     }
 
     /**
@@ -59,9 +68,16 @@ class ProductsController extends Controller
     {
         $product=Product::where('slug', $slug)->firstOrFail();
         $randomproducts=Product::inRandomOrder()->take(8)->get();
+        $category=$product->categories;
+        $id=$product->id;
+        $opinions=\App\Opinion::where('product_id',$id)->get();
+        $rating=\App\Opinion::where('product_id',$id)->avg('rating');
         $data=array(
             'product'=>$product,
-            'randomproducts'=>$randomproducts
+            'randomproducts'=>$randomproducts,
+            'category'=>$category,
+            'opinions'=>$opinions,
+            'rating'=>$rating
         );
         return view('show')->with($data);
     }
@@ -69,8 +85,7 @@ class ProductsController extends Controller
     public function list(Request $request, $list)
     {
         
-        
-
+        $categories=Category::all();
         $minPrice=$request->get('minPrice');
         $maxPrice=$request->get('maxPrice');
         $order=NULL;
@@ -102,52 +117,134 @@ class ProductsController extends Controller
         {
             $maxPrice=100;
         }
+
+
         if($list=='new')
         {
-            $products=Product::whereBetween('price', [$minPrice, $maxPrice])->orderBy('created_at','desc')->take(12)->get();
-            $categories=DB::select('SELECT DISTINCT category FROM products order by category asc ');
-            $name='Nowości';
+            if(request()->category){
+                $name=ucfirst(trans(request()->category));
+                $products=Product::whereBetween('price', [$minPrice, $maxPrice])->orderBy('created_at','desc')->with('categories')->whereHas('categories', function ($query){
+                    $query->where('slug', request()->category);
+                })->take(12)->get();
+                
+            }
+            else
+            {
+                $products=Product::whereBetween('price', [$minPrice, $maxPrice])->orderBy('created_at','desc')->take(12)->get();
+                $name='Nowości';
+            }
+           
             
         }
         elseif($list=='sale')
         {
-            if($order!=NULL)
-            {
-                $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->take(12)->get();
+            if(request()->category){
 
+                $name=ucfirst(trans(request()->category));
+                if($order!=NULL)
+                {
+                    $products=Product::with('categories')->whereHas('categories', function ($query){
+                        $query->where('slug', request()->category);
+                    })->whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
+                }
+                else{
+                    $products=Product::with('categories')->whereHas('categories', function ($query){
+                        $query->where('slug', request()->category);
+                    })->whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
+                }
+                
             }
-            else{
-                $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->take(12)->get();
+            else
+            {
+                if($order!=NULL)
+                {
+                    $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->take(12)->get();
+
+                }
+                else{
+                    $products=Product::whereNotNull('newprice')->whereBetween('price', [$minPrice, $maxPrice])->take(12)->get();
+                }
+                $name='Wyprzedaż';
             }
-            $categories=DB::select('SELECT DISTINCT category FROM products order by category asc ');
-            $name='Wyprzedaż';
             
         }
 
         elseif($list=='groceries')
         {
-            if($order!=NULL)
-            {
-                $products=Product::where('isgrocery',1)->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
-
+            if(request()->category){
+                $name=ucfirst(trans(request()->category));
+                if($order!=NULL)
+                {
+                $products=Product::with('categories')->whereHas('categories', function ($query){
+                    $query->where('isgrocery',1)->where('slug', request()->category);
+                })->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
+                }
+                else{
+                    $products=Product::with('categories')->whereHas('categories', function ($query){
+                        $query->where('isgrocery',1)->where('slug', request()->category);
+                    })->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
+                }
             }
             else
             {
-                $products=Product::where('isgrocery',1)->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
+                if($order!=NULL)
+                {
+                    $products=Product::with('categories')->whereHas('categories', function ($query){
+                        $query->where('isgrocery',1);
+                    })->whereBetween('price', [$minPrice, $maxPrice])->orderBy($order,$how)->simplePaginate(12);
+    
+                }
+                else
+                {
+                    //where('isgrocery',1)->
+                    $products=Product::with('categories')->whereHas('categories', function ($query){
+                        $query->where('isgrocery',1);
+                    })->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
+    
+                }
+                $name='Produkty spożywcze';
 
             }
+            
             $products->appends(request()->query());
-            $categories=DB::select('SELECT DISTINCT category FROM products order by category asc ');
-            $name='Produkty spożywcze';
+            
             
         }
-        elseif($list=='hygiene_products')
+        elseif($list=='search')
         {
-            $products=Product::where('isgrocery',0)->whereBetween('price', [$minPrice, $maxPrice])->simplePaginate(12);
-            $categories=DB::select('SELECT DISTINCT category FROM products order by category asc ');
-            $products->appends(request()->input())->links();
-            $name='Produkty higieniczne';
+            $q=$request->get('q');
+            if(request()->category){
+                if($order!=NULL)
+                {
+                    $products=Product::whereHas('categories', function ($query){
+                        $query->where('slug', request()->category);
+                    })->whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->orderBy($order,$how)->simplePaginate(12)->setPath('');
+
+                }
+                else
+                {
+                    $products=Product::whereHas('categories', function ($query){
+                        $query->where('slug', request()->category);
+                    })->whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->simplePaginate(12)->setPath('');
+
+                }
+            }
+            else{
+                if($order!=NULL)
+                {
+                    $products=Product::whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->orderBy($order,$how)->simplePaginate(12)->setPath('');
+    
+                }
+                else
+                {
+                    $products=Product::whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->simplePaginate(12)->setPath('');
+    
+                }
+            }
             
+            $products->appends([ 'q' => $q])->render();
+            $name='Wyniki wyszukiwania';
+
         }
         
         $data=array(
@@ -155,38 +252,13 @@ class ProductsController extends Controller
             'categories'=>$categories,
             'name'=>$name,
             'minPrice'=>$minPrice,
-            'maxPrice'=>$maxPrice
+            'maxPrice'=>$maxPrice,
+            'list'=>$list
         );
         return view('products')->with($data);
         
     }
 
-
-    public function search(Request $request)
-    {
-        $minPrice=$request->get('minPrice');
-        $maxPrice=$request->get('maxPrice');
-        $q=$request->get('q');
-        if($minPrice==NULL)
-        {
-            $minPrice=0;
-        }
-        if($maxPrice==NULL)
-        {
-            $maxPrice=100;
-        }
-        $products=Product::whereBetween('price', [$minPrice, $maxPrice])->where('title','LIKE','%'.$q.'%')->simplePaginate(2)->setPath('');
-       
-        $products->appends([ 'q' => $q])->render();
-        $categories=DB::select('SELECT DISTINCT category FROM products order by category asc ');
-
-        $data=array(
-            'products'=>$products,
-            'categories'=>$categories,
-            'name'=>'Wyniki wyszukiwania'
-        );
-        return view('products')->with($data);
-    }
 
     /**
      * Show the form for editing the specified resource.

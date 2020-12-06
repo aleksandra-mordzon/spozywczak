@@ -15,27 +15,28 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <!-- {{ route('password.email') }} -->
+                    <form method="POST" action="#">
                         @csrf
 
                         <div class="mt-16  ml-8 relative">
                             
-                            <div class="absolute ml-12">
+                            <div class=" left-0">
                                 <input id="email" placeholder="Adres E-Mail" type="email" style="border-bottom: 2px solid #3088b6" class="form-control @error('email') is-invalid @enderror w-64 pl-2" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="invalid-feedback" role="alert">
+                                        <strong class="text-red-600">{{ $message }}</strong>
+                                    </div>
                                 @enderror
                             </div>
                                 
-                                <div class=" absolute right-0 mr-12">
+                                <div class=" absolute mt-8  right-0 mr-12">
                                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 left-0 px-3 py-1 text-white font-semibold rounded-full">
-                                        {{ __('Wyślij link resetujący hasło') }}
+                                        {{ __('Wyślij link resetujący hasło (Opcja tymczasowo niedostepna!)') }}
                                     </button>
                                 </div>
+
                             </div>
                         </div>
 
