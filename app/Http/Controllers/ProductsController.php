@@ -16,18 +16,9 @@ class ProductsController extends Controller
     public function index()
     {
         $productsNew=Product::orderBy('created_at','desc')->take(8)->get();
-        //return view('index')->with('productsNew', $productsNew);
-
         $productsPopular=Product::orderBy('popularity','desc')->take(8)->get();
-
         $productsSale=DB::select('SELECT * FROM products WHERE newprice IS NOT NULL');
-        /*
-        $data=array(
-            'productsNew'=>$productsNew,
-            'productsPopular'=>$productsPopular,
-            'productsSale'=>$productsSale
-        );
-        */
+        
         $arr=array(
             array("Wyprzedaż", "#CD5C5C;", $productsSale, ""),
             array("Nowe produkty", "#30ab51;", $productsNew, "glide__green"),
@@ -82,7 +73,7 @@ class ProductsController extends Controller
         return view('show')->with($data);
     }
 
-    public $minPrice, $maxPrice, $name, $order, $how;
+    protected $minPrice, $maxPrice, $name, $order, $how;
     
     public function list(Request $request, $list)
     {
