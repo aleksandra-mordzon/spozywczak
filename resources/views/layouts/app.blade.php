@@ -67,15 +67,16 @@
                 {{ session()->get('success_message')}}
             </div>
         @endif
-
-        @if(count($errors)>0 and (!(Request::is('login') || Request::is('register') || Request::is('password/reset'))))
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li >{{$error}}</li>
-                    @endforeach
-                </ul>
-            </div>
+        @if(isset($errors))
+            @if(count($errors)>0 and (!(Request::is('login') || Request::is('register') || Request::is('password/reset'))))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li >{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         @endif
             @yield('content')
         </main>
