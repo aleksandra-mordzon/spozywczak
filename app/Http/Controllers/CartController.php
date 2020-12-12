@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     
     public function index()
     {
@@ -21,7 +24,13 @@ class CartController extends Controller
 
     public function submit()
     {
+        if(Cart::instance('default')->count()<=0) {
+                
+            return view('cart.cart');
+        }
+        else{
         return view('cart.summary');
+        }
     }
 
     public function store(Request $request)
@@ -43,15 +52,15 @@ class CartController extends Controller
         return view('cart.success');
     }
 
-    public function payerror()
-    {
-        echo "<script>setTimeout(function(){ window.location.href = 'http://127.0.0.1:8000/cart/summary'; }, 4000);</script>";
-        return view('cart.error');
-    }
-
     public function destroy($id)
     {
+        if(Cart::instance('default')->count()<=0) {
+                
+            return view('cart.cart');
+        }
+        else{
         Cart::remove($id);
         return back()->with('success_message','Usunięto produkt z koszyka!');
+        }
     }
 }

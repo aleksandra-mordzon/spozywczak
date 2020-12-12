@@ -7,12 +7,13 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Illuminate\Http\Request;
 use App\Http\Requests\PaymentRequest;
+use App\Http\Controllers\MailController;
 
 class InfoAndShipmentController extends Controller
 {
-    public function __construct()
-    {
-         
+    public function __construct(){
+        $this->middleware('auth');
+        
     }
 
     /**
@@ -69,8 +70,9 @@ class InfoAndShipmentController extends Controller
                     'quantity' => Cart::instance('default')->count(),
                 ],
             ]);
-            
+            $id=round(microtime(true) * 1000);
             $productcart=new \App\ProductCart;
+            $productcart->id=$id;
             $productcart->user_id=$user_id;
             $productcart->products=rtrim($request->input('products'), ',');
             $productcart->subtotal_price=Cart::subtotal();
@@ -108,6 +110,8 @@ class InfoAndShipmentController extends Controller
             
 
             Cart::destroy();
+            $mail= new MailController($user_id);
+            $mail->sendOrderMail($id);
             return view('cart.success')->with('success','sukces');
         } catch (CardErrorException $e) {
             return back()->withErrors('Error! ' . $e->getMessage());

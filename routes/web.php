@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 Route::get('/products/{list}/{category?}', 'ProductsController@list')->where(['list' => 'new|sale|groceries|search']);
 
 
@@ -30,17 +29,16 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@editData')->name('editData');
 
-Route::get('/cart','CartController@index')->name('cart')->middleware('auth');;
-Route::get('/cart/{rowId}/{qty}','CartController@add')->middleware('auth');;
+Route::get('/cart','CartController@index')->name('cart');
+Route::get('/cart/{rowId}/{qty}','CartController@add');
 
-Route::get('/cart/info', 'InfoAndShipmentController@index')->name('info')->middleware('auth');;
-Route::post('/cart/info', 'InfoAndShipmentController@store')->name('storeinfo')->middleware('auth');;
+Route::get('/cart/info', 'InfoAndShipmentController@index')->name('info');
+Route::post('/cart/info', 'InfoAndShipmentController@store')->name('storeinfo');
 
-Route::get('/cart/summary', 'CartController@submit')->name('summary')->middleware('auth');;
-Route::get('/cart/success', 'CartController@paysuccess')->name('paysuccess')->middleware('auth');;
-Route::get('/cart/error', 'CartController@payerror')->name('payerror')->middleware('auth');;
-Route::post('/cart', 'CartController@store')->name('store')->middleware('auth');;
-Route::delete('/cart/{product}', 'CartController@destroy')->name('destroy')->middleware('auth');;
+Route::get('/cart/summary', 'CartController@submit')->name('summary');
+Route::get('/cart/success', 'CartController@paysuccess')->name('paysuccess');
+Route::post('/cart', 'CartController@store')->name('store');
+Route::delete('/cart/{product}', 'CartController@destroy')->name('destroy');
 
 Route::get('/empty', function(){
     Cart::destroy();
