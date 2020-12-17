@@ -189,7 +189,7 @@ div#opinion.hidden {
                         <h3>Ten produkt nie ma jeszcze żadnych opinii!</h3>
                         @endif
                         </ul>
-                        @if(count($opinions)>4)
+                        @if(count($opinions)>3)
                         <div  class="text-gray-800 hover:text-black pb-8 pt-2"><a href="#" class="commentsBtn">Zobacz więcej</a></div>
                         @endif
                     </div>
@@ -283,8 +283,6 @@ function addStickyClass(){
 <script>
 function clickbutton()
 {
-
-    
         $("div#opinion").removeClass("hidden");
 }
         

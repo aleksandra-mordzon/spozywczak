@@ -12,7 +12,7 @@ use App\Http\Controllers\MailController;
 class InfoAndShipmentController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware(['auth', 'verified']);
         
     }
 
