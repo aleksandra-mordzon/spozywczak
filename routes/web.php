@@ -47,6 +47,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@editData')->name('editData');
+Route::delete('/home/destroy', 'HomeController@destroy')->name('destroyUser');
 
 Route::get('/cart','CartController@index')->name('cart');
 Route::get('/cart/{rowId}/{qty}','CartController@add');

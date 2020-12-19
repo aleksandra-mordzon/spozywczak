@@ -27,7 +27,10 @@
             </div> 
         </div>
         <div class="ml-16">
-            <div title="Edytuj" class="text-3xl mt-20 "> {{$user->email}} </div>
+            <div title="Edytuj" class=" text-3xl mt-20 mb-4"> {{$user->email}} </div>
+           
+                <div><a href="" data-id="{{$user->id}}" class="bg-red-600 button  hover:bg-red-700 p-2  font-semibold rounded-lg text-white">Delete this account</a></div>
+            
             <div class="relative" style="width:700px;">
                 <div class="text-3xl mt-16 " style="border-bottom: 2px solid #CD5C5C; "> Moje dane </div>
                     <div class="static  " >
@@ -144,6 +147,42 @@ function addClass(num) {
     }
 }
 
+</script>
+
+<script>
+$(document).on('click', '.button', function (e) {
+    
+    
+    e.preventDefault();
+    var id = $(this).data('id');
+    Swal.fire({
+        title: 'Czy na pewno chcesz usunąć swoje konto?',
+        text: "Nie będziesz mógł tego cofnąć!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Tak, usuń!'
+    }).then((result) =>  {
+            if (result.isConfirmed) {
+                $.ajax({
+                type: "DELETE",
+                url: "{{url('/home/destroy')}}",
+                data: {id:id, "_token": "{{ csrf_token() }}"},
+                success: function () {
+                    Swal.fire("Zrobione!", "Udało ci się usunąć konto!", "success");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    Swal.fire("Błąd!", "Proszę spróbuj ponownie", "error");
+                }       
+                });
+                
+            } else if (result.isDenied) {
+                Swal.fire('Zmiany nie zostały zapisane', '', 'info');
+            }  
+            
+        });
+});
 </script>
 
 

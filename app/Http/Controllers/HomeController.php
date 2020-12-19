@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -62,5 +62,22 @@ class HomeController extends Controller
 
         return back();
 
+    }
+
+    public function destroy(Request $request)
+    {
+        $user_id=auth()->user()->id;
+        if($user_id==$request->input('id')){
+            $user = \App\User::find($user_id);  
+            //return redirect('/');  
+            $user->delete();
+            Auth::logout();
+            return response()->json(['success' => true]);
+        }
+        else
+        {
+            return ['error' => true];
+        }
+        
     }
 }
