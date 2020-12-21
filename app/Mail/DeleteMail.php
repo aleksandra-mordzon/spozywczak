@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderMail extends Mailable
+class DeleteMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +16,9 @@ class OrderMail extends Mailable
      *
      * @return void
      */
-    protected $data;
-    public function __construct($data)
+    public function __construct($email)
     {
-        $this->data = $data;
+        $this->email = $email;
     }
 
     /**
@@ -29,8 +28,8 @@ class OrderMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.order')->subject("Spozywczak-Zamówienie")->with([
-            'data' => $this->data,
+        return $this->markdown('emails.delete')->subject("Spozywczak-Usunięcie konta")->with([
+            'email' => $this->email,
         ]);
     }
 }

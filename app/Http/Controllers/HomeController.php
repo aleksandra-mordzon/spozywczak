@@ -68,7 +68,9 @@ class HomeController extends Controller
     {
         $user_id=auth()->user()->id;
         if($user_id==$request->input('id')){
-            $user = \App\User::find($user_id);  
+            $user = \App\User::find($user_id);
+            $mail= new MailController($user_id);
+            $mail->sendDeleteUserMail();
             //return redirect('/');  
             $user->delete();
             Auth::logout();

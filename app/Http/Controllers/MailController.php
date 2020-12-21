@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderMail;
+use App\Mail\DeleteMail;
 
 class MailController extends Controller
 {
@@ -34,8 +35,13 @@ class MailController extends Controller
         ];
         
         Mail::to($email)->send(new OrderMail($data));
-        //dd($data);
-
-
     }
+
+    public function sendDeleteUserMail()
+    {
+        $user=\App\User::find($this->userId);
+        $email=$user->email;
+        Mail::to($email)->send(new DeleteMail($email));
+    }
+
 }

@@ -99,7 +99,7 @@ div#opinion.hidden {
             <div class="font-semibold text-4xl ">{{$product->title}}</div>
             <div class="text-xl">
             @if($product->newprice != NULL)
-                <b class="text-red-800">{{$product->price}} zł</b> <s>{{$product->newprice}} zł</s>
+                <b class="text-red-800">{{$product->newprice}} zł</b> <s>{{$product->price}} zł</s>
 
                 @else
                 <b>{{$product->price}} zł</b> 

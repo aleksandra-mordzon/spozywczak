@@ -8,9 +8,14 @@
 
     <div class="text-lg ">
         @if (session('resent'))
-            <div class="alert alert-success" role="alert">
-                {{ __('Nowy link weryfikacyjny został właśnie wysłany.') }}
-            </div>
+            <script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Nowy link weryfikacyjny został właśnie wysłany.',
+            showConfirmButton: false,
+            timer: 1500
+            })
+            </script>
         @endif
 
         {{ __('Proszę, sprawdź swóją pocztę w celu zweryfikowaniu konta') }}
