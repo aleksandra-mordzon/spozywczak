@@ -66,27 +66,43 @@
     
         
         
-        <main style="min-height:757px;">
-        @if(session()->has('success_message'))
-            <div class="alert alert-success  mt-6 text-center">
-                {{ session()->get('success_message')}}
-            </div>
-        @endif
-        @if(isset($errors))
-            @if(count($errors)>0 and (!(Request::is('login') || Request::is('register') || Request::is('password/reset'))))
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li >{{$error}}</li>
-                        @endforeach
-                    </ul>
+        <main style="min-height:757px;" >
+        
+            @if(session()->has('success_message'))
+                <div class="alert alert-success  mt-6 text-center">
+                    {{ session()->get('success_message')}}
                 </div>
             @endif
-        @endif
-            @yield('content')
+            @if(isset($errors))
+                @if(count($errors)>0 and (!(Request::is('login') || Request::is('register') || Request::is('password/reset'))))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li >{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            @endif
+            <div id="scroll-btn" class=" hidden cursor-pointer fixed bottom-0 right-0 mb-16 mr-6 bg-white z-10 p-3 rounded-md " onclick="scrollToTop()" ><i class="fa fa-toggle-up" style="font-size:48px"></i></div>
+                @yield('content')
+                
         </main>
         @include('inc.footer')
     </div>
+
+    <script>
+        window.onscroll = function(){
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50){
+        document.getElementById("scroll-btn").style.display = "block"; }
+        else{
+        document.getElementById("scroll-btn").style.display = "none"; }
+        };
+
+        function scrollToTop(){
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
 
     <script>
         
