@@ -60,7 +60,7 @@
 </head>
 <body style="height:100%">
     <div id="app">
-    @if(!(Request::is('login') || Request::is('register') || Request::is('password/reset')))
+    @if(!(Request::is('login') || Request::is('register') || Request::is('password/reset/*') || Request::is('password/reset')))
         @include('inc.navbar')
     @endif
     

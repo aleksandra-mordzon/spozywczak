@@ -15,8 +15,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <!-- {{ route('password.email') }} -->
-                    <form method="POST" action="#">
+                    <!--  -->
+                    <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="mt-16  ml-8 relative">
@@ -33,7 +33,7 @@
                                 
                                 <div class=" absolute mt-8  right-0 mr-12">
                                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 left-0 px-3 py-1 text-white font-semibold rounded-full">
-                                        {{ __('Wyślij link resetujący hasło (Opcja tymczasowo niedostepna!)') }}
+                                        {{ __('Wyślij link resetujący hasło ') }}
                                     </button>
                                 </div>
 
