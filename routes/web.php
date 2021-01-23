@@ -44,7 +44,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-
+Route::get('/redirect', 'Auth\LoginController@googleredirect');
+Route::get('/callback', 'Auth\LoginController@googlecallback');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@editData')->name('editData');
 Route::delete('/home/destroy', 'HomeController@destroy')->name('destroyUser');

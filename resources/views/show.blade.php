@@ -88,9 +88,9 @@ div#opinion.hidden {
 
         <div class="lg:absolute sm:relative sm:mt-16 md:mt-5 sm:m-20 md:ml-48 lg:ml-0" id="images" style=" width: 100%; max-width:500px; padding-top:15px;">
 
-            <img src="{{ asset('img/'.$product->slug.'.jpg') }}" class=" cursor-pointer border-solid border-2 border-gray-300 hover:border-gray-400">
+            <img src="{{ asset('img/products/'.$product->slug.'.jpg') }}" class=" cursor-pointer border-solid border-2 border-gray-300 hover:border-gray-400">
             <div class="flex justify-center mt-5">
-                <img src="{{ asset('img/'.$product->slug.'.jpg') }}" class="w-1/4 cursor-pointer border-solid border-2 border-gray-500 ">
+                <img src="{{ asset('img/products/'.$product->slug.'.jpg') }}" class="w-1/4 cursor-pointer border-solid border-2 border-gray-500 ">
             </div>
         </div>
         </div>
@@ -113,7 +113,7 @@ div#opinion.hidden {
             {
                 $n=0;
             }
-            $img='/img/'.$n.'-star.png';
+            $img='/img/stars/'.$n.'-star.png';
             echo "<img src='$img' class='mt-4'>";
             //echo strpos(strval($product->rating),'.')
             
@@ -181,7 +181,7 @@ div#opinion.hidden {
                         @foreach($opinions as $op)
                         <li class=" mb-3 comm" style="border-bottom: 1px solid lightgray">
                             <div class="flex text-xl" style="padding-bottom:0px!important;"><img src="{{asset('img/avatar.svg')}}" style="max-width:35px;" class="mr-2"> <div>{{$op->user->name}} </div><div class="text-gray-800 text-sm mt-2 ml-2"> {{$op->created_at}}</div>  </div>
-                            <img src='/img/<?php echo $op->rating ?>-star.png' style="width:85px; " >
+                            <img src='/img/stars/<?php echo $op->rating ?>-star.png' style="width:85px; " >
                             <div class="ml-1">{{$op->opinion}}</div>
                         </li>
                         @endforeach
@@ -210,7 +210,7 @@ div#opinion.hidden {
         <div class="glide__track" data-glide-el="track">
                 <ul class="glide__slides">
                 @foreach($randomproducts as $rproduct)
-                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$rproduct->slug}}"><img src="{{ asset('img/'.$rproduct->slug.'.jpg') }}" style="max-width:300px;  min-height:300px;" class="ml-10">
+                <li class="glide__slide "  ><div class="hover:shadow-2xl px-12 relative"><a href="/show/{{$rproduct->slug}}"><img src="{{ asset('img/products/'.$rproduct->slug.'.jpg') }}" style="max-width:300px;  min-height:300px;" class="ml-10">
                 @if($rproduct->newprice != NULL)
                 <b class="text-red-800">{{$rproduct->newprice}} zł</b> <s>{{$rproduct->price}} zł</s>
 
@@ -242,21 +242,16 @@ El.classList.toggle("isntvisible");
 </script>
 
 <script>
-
-window.onscroll = function() {addStickyClass()};
-
-
-    var images=document.getElementById("images");
-var prod=document.getElementById("prod");
+var images=document.getElementById("images");
 var sticky = images.offsetTop;
-var sticky2 = prod.offsetTop;
-
+window.onscroll = addStickyClass;
     
 function addStickyClass(){
     if($(window).width() > 1024)
 {
     if (window.pageYOffset > sticky) {
         images.classList.add("sticky");
+        console.log(1);
         
   } 
     if  (window.pageYOffset<204 )

@@ -8,7 +8,7 @@
                 @foreach($Products as $product)
                     <li class="glide__slide "  >  
                         <form action="{{ route('store') }}" method="POST">
-                                <div class="  relative border-solid border-2 border-white hover:border-gray-300 pb-8 mx-8"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/'.$product->slug.'.jpg') }}" style="max-width:300px; min-height:300px;" class="sm:ml-40 md:ml-8">
+                                <div class="  relative border-solid border-2 border-white hover:border-gray-300 pb-8 mx-8"><a href="/show/{{$product->slug}}"><img src="{{ asset('img/products/'.$product->slug.'.jpg') }}" style="max-width:300px; min-height:300px;" class="sm:ml-40 md:ml-8">
                                     @if($product->newprice != NULL)
                                         <b class="text-red-800 sm:ml-32 md:ml-4">{{$product->price}} zł</b> <s>{{$product->newprice}} zł</s>
 

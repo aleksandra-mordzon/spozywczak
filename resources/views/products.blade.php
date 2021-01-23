@@ -59,7 +59,7 @@
             @foreach($products as $product)
                 
                 <form action="{{ route('store') }}" method="POST">
-                    <div class="  relative border-solid border-2 border-white hover:border-gray-300 pb-8 mx-8" style="min-width:258px!important"><a href="/show/{{$product->slug}}"><img src="{{asset('img/'.$product->slug.'.jpg') }}" style="min-width:228px!important;  ">
+                    <div class="  relative border-solid border-2 border-white hover:border-gray-300 pb-8 mx-8" style="min-width:258px!important"><a href="/show/{{$product->slug}}"><img src="{{asset('img/products/'.$product->slug.'.jpg') }}" style="min-width:228px!important;  ">
                         @if($product->newprice != NULL)
                             <b class="text-red-800 ml-4">{{$product->price}} zł</b> <s>{{$product->newprice}} zł</s>
 

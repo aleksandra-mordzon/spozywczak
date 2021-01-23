@@ -19,7 +19,7 @@
                     @foreach(Cart::content() as $item)
                     
                         <tr>
-                        <td class="border  px-8 " style="min-width:190px!important"><img src="{{ asset('img/'.$item->model->slug.'.jpg') }}" class="w-32"></td>
+                        <td class="border  px-8 " style="min-width:190px!important"><img src="{{ asset('img/products/'.$item->model->slug.'.jpg') }}" class="w-32"></td>
                         <td class="border  py-2 text-xl text-center" style="width:390px!important"><a href="{{route('show', $item->model->slug)}}">{{$item->model->title}} </a></td>
                         <td class="border px-8 py-2 text-xl" style="width:190px!important">  <span class="form-group"><input type="number" rowId="{{ $item->rowId }}" class="form-control prc" value="{{$item->qty}}" style="width:40px;" ></span> x {{$item->model->price}} zł</td>
                         

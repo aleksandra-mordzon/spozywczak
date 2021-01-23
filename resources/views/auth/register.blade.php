@@ -75,7 +75,8 @@
                                             {{ __('Logowanie') }}
                                         </a>
                         <div class="mt-10">
-                            <div class=" justify-center">
+                            <div class="flex justify-center">
+                                <a href="/redirect" class="pr-4"><img tabindex="0" class="google" src="/img/fbButtons/btn_google_signin_light_normal_web.png"></a>
                                 <button type="submit" class=" bg-blue-500 hover:bg-blue-700 left-0 px-5 py-3 text-white font-semibold rounded-full">
                                     {{ __('Zarejestruj') }}
                                 </button>

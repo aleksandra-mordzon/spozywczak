@@ -56,6 +56,9 @@
             background-color: #f2dede;
             border-color: #ebccd1;
         }
+        .google:focus{
+            background: url("/img/fbButtons/btn_google_signin_light_focus_web.png") no-repeat;
+        }
 </style>
 </head>
 <body style="height:100%">
@@ -92,7 +95,9 @@
     </div>
 
     <script>
-        window.onscroll = function(){
+    window.addEventListener('scroll', scroll);
+    
+        function scroll(){
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50){
         document.getElementById("scroll-btn").style.display = "block"; }
         else{
@@ -102,6 +107,7 @@
         function scrollToTop(){
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+        
     </script>
 
     <script>
