@@ -23,7 +23,8 @@ Route::get('/products/{list}/{category?}', 'ProductsController@list')->where(['l
 
 Route::get('/', 'ProductsController@index');
 Route::get('/show/{slug}', 'ProductsController@show')->name('show');
-Route::post('/', 'WriteOpinionController@store')->name('writeopinion');
+Route::post('/opinion', 'WriteOpinionController@store')->name('writeopinion');
+Route::delete('/opinion/{id}', 'WriteOpinionController@destroy')->name('deleteopinion');
 
 Auth::routes(['verify' => true]);
 

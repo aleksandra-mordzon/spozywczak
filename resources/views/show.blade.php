@@ -179,10 +179,17 @@ div#opinion.hidden {
                         <ul id="comments">
                         
                         @foreach($opinions as $op)
-                        <li class=" mb-3 comm" style="border-bottom: 1px solid lightgray">
+                        <li class=" mb-3 comm relative" style="border-bottom: 1px solid lightgray">
                             <div class="flex text-xl" style="padding-bottom:0px!important;"><img src="{{asset('img/avatar.svg')}}" style="max-width:35px;" class="mr-2"> <div>{{$op->user->name}} </div><div class="text-gray-800 text-sm mt-2 ml-2"> {{$op->created_at}}</div>  </div>
                             <img src='/img/stars/<?php echo $op->rating ?>-star.png' style="width:85px; " >
-                            <div class="ml-1">{{$op->opinion}}</div>
+                            <div class="ml-1 mb-2">{{$op->opinion}}</div>
+                            @if($op->user_id==auth()->user()->id)
+                                <form action="{{route('deleteopinion', $op->opinion_id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"><h1 class="absolute right-0 top-0 cursor-pointer mr-2">x</h1></button>
+                                </form>
+                            @endif
                         </li>
                         @endforeach
                         @if(count($opinions)==0)

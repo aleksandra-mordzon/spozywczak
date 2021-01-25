@@ -89,6 +89,11 @@ class WriteOpinionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_id=auth()->user()->id;
+        $opinion=\App\Opinion::where('opinion_id',$id)->where('user_id',$user_id);;
+        
+        $opinion->delete();
+        return back()->with('success_message','Komentarz został usunięty!');
+    
     }
 }
