@@ -15,9 +15,8 @@ class CartController extends Controller
         return view('cart.cart');
     }
 
-    public function add(Request $request, $id, $quantity){
+    public function add($id, $quantity){
         Cart::update($id, $quantity);
-        //$item->save();
         session()->flash('success_message','Zawartość koszyka została zaktualizowana!');
         return response('success');
     }
@@ -39,7 +38,6 @@ class CartController extends Controller
             ->associate('App\Product');
         
         $popularity=\App\Product::where('id', $request->id)->increment('popularity');
-        //dd($request->all());
         return redirect()->back()->with('success_message','Produkt został dodany do koszyka!');
     }
 

@@ -82,7 +82,7 @@
 
         
         <div style="" id="creditcardinfo" >
-                <label for="card-element" style="font-size:18px;!important">
+                <label for="card-element" style="font-size:18px!important">
                 Karta kredytowa lub debetowa
                 </label>
                 <div id="card-element">

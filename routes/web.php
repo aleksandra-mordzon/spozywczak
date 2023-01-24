@@ -3,6 +3,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::get('/products/{list}/{category?}', 'ProductsController@list')->where(['l
 
 Route::get('/', 'ProductsController@index');
 Route::get('/show/{slug}', 'ProductsController@show')->name('show');
+
 Route::post('/opinion', 'WriteOpinionController@store')->name('writeopinion');
 Route::delete('/opinion/{id}', 'WriteOpinionController@destroy')->name('deleteopinion');
 

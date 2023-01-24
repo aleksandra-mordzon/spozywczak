@@ -1,9 +1,5 @@
 <navbar>
-<style>
-      #menu-toggle:checked + #menu {
-        display: block;
-      }
-  </style>
+
 <div class="bg-white flex items-center ">
 
                 <div class="flex lg:items-center flex-shrink-0  mr-6 text-lg font-bold   sm:ml-10 sm:py-4 lg:ml-40 lg:py-3 ">

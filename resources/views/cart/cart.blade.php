@@ -10,7 +10,7 @@
                     
                 @if(Cart::count()>0)
 
-                <h3><!--{{Cart::count()}}--> 
+                <h3>
                     <span id="result">{{Cart::count()}}</span> produkt(y) w koszyku</h3>
                 <table class="table-auto mt-16">
                     
@@ -77,7 +77,7 @@ $('.form-group').on('input', '.prc', function(){
             url: '/cart/'+rowId+'/'+quantity,
             success: function(data){
                 if (data == 'success') {                
-                    window.location.href = '{{ route('cart') }}'
+                    window.location.href = '{{ route("cart") }}'
                 }
                 else{
                     alert('failure');
@@ -89,7 +89,6 @@ $('.form-group').on('input', '.prc', function(){
             }
         });
         
-        //window.location.href = "{{ url('cart') }}"+'/'+rowId+'/'+quantity; 
     }
 });
 </script>

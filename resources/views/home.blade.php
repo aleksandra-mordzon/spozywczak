@@ -1,23 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.visible {
-    
-    visibility: visible!important;
-    font-size: 16px;
-    
-}
 
-.notvisible {
-    visibility: hidden;
-    font-size: 0;
-    margin: 0;
-
-
-}
-
-</style>
 <div class=" md:relative lg:flex justify-center pt-8">
     <div>
         <div class="text-4xl pb-8 sm:text-center lg:text-left">Mój profil</div>

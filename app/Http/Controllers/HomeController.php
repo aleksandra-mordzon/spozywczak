@@ -6,21 +6,11 @@ use Illuminate\Http\Request;
 use Auth;
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $user_id=auth()->user()->id;
@@ -56,9 +46,6 @@ class HomeController extends Controller
             }
         }
         $user->save();
-        
-        
-        //return view('home')->with('user',$user);
 
         return back();
 
@@ -71,7 +58,6 @@ class HomeController extends Controller
             $user = \App\User::find($user_id);
             $mail= new MailController($user_id);
             $mail->sendDeleteUserMail();
-            //return redirect('/');  
             $user->delete();
             Auth::logout();
             return response()->json(['success' => true]);

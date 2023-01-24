@@ -36,30 +36,9 @@
     <link href="{{asset('/css/glide.theme.min.css')}}" rel="stylesheet" >
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="/css/app.css">
 
-    <style>
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
-
-        .alert-danger {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-        .google:focus{
-            background: url("/img/fbButtons/btn_google_signin_light_focus_web.png") no-repeat;
-        }
-</style>
 </head>
 <body style="height:100%">
     <div id="app">
